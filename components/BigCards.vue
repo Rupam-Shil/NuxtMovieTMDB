@@ -1,19 +1,22 @@
 <template>
   <div class="card-container">
-    <div
-      class="card"
-      :style="{
-        background:
-          'url(' + `https://image.tmdb.org/t/p/w500${movie.poster_path}` + ')',
-      }"
-    >
-      <h1 class="top-rating">{{ movie.vote_average }}</h1>
-      <div class="details">
-        <h1 class="title">{{ movie.title }}</h1>
-        <div class="duration">{{ movie.release_date }}</div>
+    <NuxtLink :to="`/movies/${movie.id}`">
+      <div
+        class="card"
+        :style="{
+          background:
+            'url(' + `https://image.tmdb.org/t/p/w500${movie.poster_path}` ||
+            '~/assets/bg.png' + ')',
+        }"
+      >
+        <h1 class="top-rating">{{ movie.vote_average }}</h1>
+        <div class="details">
+          <h1 class="title">{{ movie.title }}</h1>
+          <div class="duration">{{ movie.release_date }}</div>
+        </div>
+        <div class="hide-container">{{ movie.overview }}</div>
       </div>
-      <div class="hide-container">{{ movie.overview }}</div>
-    </div>
+    </NuxtLink>
   </div>
 </template>
 

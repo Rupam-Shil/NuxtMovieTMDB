@@ -32,7 +32,7 @@ export default {
   },
   async fetch() {
     const res = await fetch(
-      'https://api.themoviedb.org/3/movie/popular?api_key=583d845d2de5224f7a09b96f8fc76502&language=en-US&page=1'
+      'https://api.themoviedb.org/3/movie/popular?api_key=<<api key>>&language=en-US&page=1'
     )
     const data = await res.json()
     this.movies = data.results

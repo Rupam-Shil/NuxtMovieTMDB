@@ -18,7 +18,9 @@
                 placeholder="Search Here"
                 v-model="serachValue"
               />
-              <button type="button">GIVE ME THIS!</button>
+              <button type="button" @click.prevent="getRequiredMovie">
+                GIVE ME THIS!
+              </button>
             </div>
           </div>
           <div class="bottom">
@@ -37,8 +39,15 @@
       <div class="left"></div>
       <div class="right">
         <h1 class="header">Straight form horse's mouth</h1>
-        <div class="bigcardcontainer">
+        <div class="bigcardcontainer" v-if="serachValue === ''">
           <BigCards v-for="movie in topMovies" :key="movie.id" :movie="movie" />
+        </div>
+        <div class="bigcardcontainer" v-else>
+          <BigCards
+            v-for="movie in requireMovie"
+            :key="movie.id"
+            :movie="movie"
+          />
         </div>
       </div>
     </section>
@@ -51,14 +60,29 @@ export default {
     return {
       serachValue: '',
       topMovies: [],
+      requireMovie: [],
     }
   },
   async fetch() {
     const res = await fetch(
-      'https://api.themoviedb.org/3/movie/top_rated?api_key=583d845d2de5224f7a09b96f8fc76502&language=en-US&page=1'
+      'https://api.themoviedb.org/3/movie/top_rated?api_key=<<api key>>&language=en-US&page=1'
     )
     const data = await res.json()
     this.topMovies = data.results
+  },
+  methods: {
+    async getRequiredMovie() {
+      this.serachValue = this.serachValue.trim().replace(' ', '-')
+      const res = await fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=<<api key>>&language=en-US&query=${this.serachValue}&page=all&include_adult=false`
+      )
+      const data = await res.json()
+      this.requireMovie = data.results
+      window.scrollTo({
+        top: 900,
+        behavior: 'smooth',
+      })
+    },
   },
 }
 </script>
