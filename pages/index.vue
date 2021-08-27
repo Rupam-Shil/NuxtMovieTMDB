@@ -38,7 +38,7 @@
       <div class="right">
         <h1 class="header">Straight form horse's mouth</h1>
         <div class="bigcardcontainer">
-          <BigCards v-if="serachValue === ''" />
+          <BigCards v-for="movie in topMovies" :key="movie.id" :movie="movie" />
         </div>
       </div>
     </section>
@@ -50,7 +50,15 @@ export default {
   data() {
     return {
       serachValue: '',
+      topMovies: [],
     }
+  },
+  async fetch() {
+    const res = await fetch(
+      'https://api.themoviedb.org/3/movie/top_rated?api_key=583d845d2de5224f7a09b96f8fc76502&language=en-US&page=1'
+    )
+    const data = await res.json()
+    this.topMovies = data.results
   },
 }
 </script>
@@ -160,8 +168,11 @@ section.second {
       margin-bottom: 2rem;
     }
     .bigcardcontainer {
-      width: 90%;
-      height: max-content;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+      padding-right: 2rem;
     }
   }
 }

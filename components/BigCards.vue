@@ -2,8 +2,6 @@
   <div class="card-container">
     <div
       class="card"
-      v-for="movie in movies"
-      :key="movie.id"
       :style="{
         background:
           'url(' + `https://image.tmdb.org/t/p/w500${movie.poster_path}` + ')',
@@ -21,28 +19,12 @@
 
 <script>
 export default {
-  data() {
-    return {
-      movies: [],
-    }
-  },
-  async fetch() {
-    const res = await fetch(
-      'https://api.themoviedb.org/3/movie/top_rated?api_key=583d845d2de5224f7a09b96f8fc76502&language=en-US&page=1'
-    )
-    const data = await res.json()
-    this.movies = data.results
-  },
+  props: ['movie'],
 }
 </script>
 
 <style lang="scss" scoped>
 .card-container {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-bottom: 2rem;
   .card {
     border-radius: 1rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
