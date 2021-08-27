@@ -13,7 +13,11 @@
           <div class="search">
             <h1>Find <span>perfect</span> movie for evening</h1>
             <div class="search-area">
-              <input type="text" placeholder="Search Here" />
+              <input
+                type="text"
+                placeholder="Search Here"
+                v-model="serachValue"
+              />
               <button type="button">GIVE ME THIS!</button>
             </div>
           </div>
@@ -34,7 +38,7 @@
       <div class="right">
         <h1 class="header">Straight form horse's mouth</h1>
         <div class="bigcardcontainer">
-          <BigCards />
+          <BigCards v-if="serachValue === ''" />
         </div>
       </div>
     </section>
@@ -42,7 +46,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      serachValue: '',
+    }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -150,7 +160,7 @@ section.second {
       margin-bottom: 2rem;
     }
     .bigcardcontainer {
-      width: 100%;
+      width: 90%;
       height: max-content;
     }
   }

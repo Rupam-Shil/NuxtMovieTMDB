@@ -12,7 +12,7 @@
       <h1 class="top-rating">{{ movie.vote_average }}</h1>
       <div class="details">
         <h1 class="title">{{ movie.title }}</h1>
-        <div class="duration">1h 7min</div>
+        <div class="duration">{{ movie.release_date }}</div>
       </div>
       <div class="hide-container">{{ movie.overview }}</div>
     </div>
@@ -38,7 +38,7 @@ export default {
 
 <style lang="scss" scoped>
 .card-container {
-  width: 98%;
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
@@ -71,6 +71,7 @@ export default {
       justify-content: space-between;
       margin-bottom: 1rem;
       padding: 0 1rem;
+      gap: 0.5rem;
       color: #fff;
       text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
     }
